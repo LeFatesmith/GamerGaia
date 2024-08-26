@@ -1,0 +1,4 @@
+# Configuration file for GamerGaia
+# Please replace the placeholders with your actual tokens and keys
+discord_bot_token: "your_discord_bot_token"
+steam_api_key: "your_steam_api_key"
