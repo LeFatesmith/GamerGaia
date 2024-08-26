@@ -61,30 +61,25 @@ gg common_games <steam_id>
   gg common_games 76561198000000000 game_count 1 "Apex Legends"
   ```
 
-## Deployment
+## Deploying the Bot
 
-To deploy the GamerGaia bot:
+To deploy the GamerGaia bot to your Discord channel:
 
-1. **GitHub Repository**: Push your code to your GitHub repository.
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit for GamerGaia bot"
-   git branch -M main
-   git remote add origin https://github.com/LeFatesmith/GamerGaia.git
-   git push -u origin main
-   ```
+1. **Set Up Your Bot on Discord**:
+   - Go to the [Discord Developer Portal](https://discord.com/developers/applications).
+   - Create a new application and add a bot user to your application.
+   - Copy your bot token and paste it into the `config.yml` file under `discord_bot_token`.
 
-2. **Heroku Deployment** (Optional): If you want to host the bot on Heroku, create a `Procfile` with the following content:
-   ```
-   worker: python gamergaia.py
-   ```
-   
-   Follow the [Heroku deployment guide](https://devcenter.heroku.com/articles/getting-started-with-python) to deploy your bot.
+2. **Invite Your Bot to Your Server**:
+   - Generate an OAuth2 URL for your bot with the necessary permissions, including "Read Messages", "Send Messages", and "Manage Messages".
+   - Use this URL to invite the bot to your Discord server.
 
-3. **Environment Variables**: Store sensitive data like your Discord Bot Token and Steam API Key as environment variables. On Heroku, you can set these under "Settings" > "Config Vars".
+3. **Run the Bot**:
+   - Ensure you have Python installed and all dependencies from `requirements.txt` are installed.
+   - Run the bot locally by executing:
+     ```bash
+     python gamergaia.py
+     ```
+   - Keep the script running to keep the bot active in your server.
 
-## References
-
-- **Discord.py Documentation**: [https://discordpy.readthedocs.io/](https://discordpy.readthedocs.io/)
-- **Steam API Documentation**: [https://developer.valvesoftware.com/wiki/Steam_Web_API](https://developer.valvesoftware.com/wiki/Steam_Web_API)
+For more details on setting up the bot, refer to the [README.md](README.md) file.
