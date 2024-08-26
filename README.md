@@ -11,9 +11,9 @@ Ensure you have the following before starting:
 - **Steam API Key**: Get your Steam API key from [Steam API Key Management](https://steamcommunity.com/dev/apikey).
 - **GitHub Account**: To host the repository.
 
-## Project Setup
+## Bot Setup
 
-Create a new GitHub repository at `https://github.com/LeFatesmith/GamerGaia`.
+For more details on setting up the bot, refer to the [USAGE.md](USAGE.md) file.
 
 ### Folder Structure
 
