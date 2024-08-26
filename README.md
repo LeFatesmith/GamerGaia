@@ -13,7 +13,7 @@ Ensure you have the following before starting:
 
 ## Bot Setup
 
-#### *For more details on setting up the bot*, see: [USAGE.md](USAGE).
+#### *For more details on use and setup of the bot*, see [USAGE](USAGE.md).
 
 ### Folder Structure
 
