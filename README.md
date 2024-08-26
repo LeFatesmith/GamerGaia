@@ -9,7 +9,6 @@ Ensure you have the following before starting:
 - **Python 3.8+**: Install Python from [here](https://www.python.org/downloads/).
 - **Discord Bot Token**: Obtain a Discord bot token from the [Discord Developer Portal](https://discord.com/developers/applications).
 - **Steam API Key**: Get your Steam API key from [Steam API Key Management](https://steamcommunity.com/dev/apikey).
-- **GitHub Account**: To host the repository.
 
 ## Bot Setup
 
