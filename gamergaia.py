@@ -1,39 +1,46 @@
 import discord
 from discord.ext import commands
-from steam import WebAPI
+import requests
+import yaml
+
+# Load configuration from config.yml
+with open('config.yml', 'r') as config_file:
+    config = yaml.safe_load(config_file)
 
 # Replace with your Steam API Key
-STEAM_API_KEY = 'your_steam_api_key'
+STEAM_API_KEY = config['steam_api_key']
 # Replace with your Discord Bot Token
-DISCORD_BOT_TOKEN = 'your_discord_bot_token'
+DISCORD_BOT_TOKEN = config['discord_bot_token']
 
-# Initialize the Steam API client
-steam_api = WebAPI(key=STEAM_API_KEY)
-
-# Initialize the Discord bot with the 'gg' abbreviation for commands
+# Initialize the intents
 intents = discord.Intents.default()
 intents.message_content = True
-intents.members = True
+intents.members = True  # This requires the Server Members Intent
+intents.presences = True  # If your bot needs presence updates
 
+# Initialize the Discord bot with the 'gg' abbreviation for commands
 bot = commands.Bot(command_prefix=['gg ', 'GG '], intents=intents)
 
 # Function to get games owned by a Steam user
 def get_steam_games(steam_id):
-    response = steam_api.IPlayerService.GetOwnedGames(steamid=steam_id, include_appinfo=True)
+    url = f"http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key={STEAM_API_KEY}&steamid={steam_id}&include_appinfo=true&format=json"
+    response = requests.get(url).json()
     if 'response' in response and 'games' in response['response']:
         return response['response']['games']
     return []
 
 # Function to get a user's friends
 def get_friends_list(steam_id):
-    response = steam_api.ISteamUser.GetFriendList(steamid=steam_id, relationship='friend')
+    url = f"http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key={STEAM_API_KEY}&steamid={steam_id}&relationship=friend"
+    response = requests.get(url).json()
     if 'friendslist' in response and 'friends' in response['friendslist']:
         return response['friendslist']['friends']
     return []
 
 # Function to get detailed friend info (like online status)
 def get_friend_info(steam_id):
-    response = steam_api.ISteamUser.GetPlayerSummaries(steamids=steam_id)
+    url = f"http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={STEAM_API_KEY}&steamids={steam_id}"
+    response = requests.get(url).json()
     if 'response' in response and 'players' in response['response']:
         return response['response']['players']
     return []
@@ -114,16 +121,14 @@ async def common_games(ctx, steam_id: str, sort_by: str = 'game_count', filter_o
         return
     
     # Construct the response message
-    message = "Games you have in common with your friends in this channel:
-"
+    message = "Games you have in common with your friends in this channel:\n"
     for friend_id, details in sorted_common_games:
         friend_info = details['friend_info']
         if friend_info:
             friend_name = friend_info['personaname']
             status = "Online" if friend_info['personastate'] else "Offline"
             games = ', '.join([game['name'] for game in details['games']])
-            message += f"**{friend_name}** ({status}): {games}
-"
+            message += f"**{friend_name}** ({status}): {games}\n"
     
     await ctx.send(message)
 
